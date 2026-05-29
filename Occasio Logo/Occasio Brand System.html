@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Occasio · Brand System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --ink:      #0d0a1f;
+    --ink-2:    #1a1334;
+    --paper:    #f6f3ff;
+    --paper-2:  #ece6ff;
+    --violet:   #a78bfa;
+    --violet-2: #8b5cf6;
+    --violet-3: #c4b5fd;
+    --violet-4: #6d4ed8;
+    --beam:     linear-gradient(90deg, rgba(167,139,250,0.05), #8b5cf6 65%, #a78bfa 100%);
+  }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Manrope', system-ui, sans-serif; background: #f0eee9; color: var(--ink); }
+
+  .tile {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .tile.dark   { background: var(--ink); color: var(--paper); }
+  .tile.darker { background: #08061a;    color: var(--paper); }
+  .tile.paper  { background: var(--paper); color: var(--ink); }
+  .tile.violet { background: var(--violet-2); color: var(--paper); }
+
+  .caption {
+    position: absolute; bottom: 14px; left: 16px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+    opacity: 0.45;
+  }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="brand-tokens.jsx"></script>
+<script type="text/babel" src="brand-apps-web.jsx"></script>
+<script type="text/babel" src="brand-apps-social.jsx"></script>
+<script type="text/babel" src="brand-apps-print.jsx"></script>
+<script type="text/babel" src="brand-book.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+</body>
+</html>

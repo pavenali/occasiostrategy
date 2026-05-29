@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Occasio — Logo Exploration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --teal-900: #08191a;
+    --teal-800: #0a1f1c;
+    --teal-700: #112c28;
+    --teal-600: #1a3a34;
+    --cream:    #e8e4d8;
+    --cream-2:  #f1ede1;
+    --sage:     #7cb89c;
+    --sage-2:   #9ccab0;
+    --gold:     #c9a26e;
+    --ink:      #0a1f1c;
+  }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Manrope', system-ui, sans-serif; background: #f0eee9; color: var(--ink); }
+
+  /* ---------- shared logo styles ---------- */
+  .logo-tile {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-tile.dark { background: var(--teal-800); color: var(--cream); }
+  .logo-tile.cream { background: var(--cream); color: var(--teal-800); }
+  .logo-tile.deep { background: var(--teal-900); color: var(--cream); }
+
+  .tile-caption {
+    position: absolute;
+    bottom: 14px;
+    left: 16px;
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.45;
+  }
+
+  /* wordmark base */
+  .wm {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .wm .greek-k { font-family: 'Fraunces', serif; font-weight: 400; font-style: italic; }
+
+  .small-mono {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+</style>
+
+<!-- Speaker / context script intentionally omitted; this is a static canvas. -->
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="logos.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+</body>
+</html>

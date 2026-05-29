@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Occasio · Asset Pack</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink:      #0d0a1f;
+    --ink-2:    #1a1334;
+    --paper:    #f6f3ff;
+    --violet:   #a78bfa;
+    --violet-2: #8b5cf6;
+    --violet-3: #c4b5fd;
+    --violet-4: #6d4ed8;
+    --bg:       #f0eee9;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Manrope', system-ui, sans-serif;
+    background: var(--bg); color: var(--ink);
+    padding: 56px 40px 80px;
+  }
+  .header {
+    max-width: 980px; margin: 0 auto 40px;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+    opacity: 0.55; margin-bottom: 12px;
+  }
+  h1 {
+    font-weight: 700; font-size: 38px; letter-spacing: -0.025em; line-height: 1.05;
+    margin: 0 0 16px;
+  }
+  .lede {
+    font-size: 15.5px; line-height: 1.6; opacity: 0.78; max-width: 640px;
+  }
+  .nav-back {
+    display: inline-block; margin-top: 18px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--violet-4); text-decoration: none;
+    border-bottom: 1px solid currentColor; padding-bottom: 2px;
+  }
+
+  .group {
+    max-width: 980px; margin: 0 auto 56px;
+  }
+  .group-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    opacity: 0.6; margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(13,10,31,0.12);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(13,10,31,0.06), 0 4px 14px rgba(13,10,31,0.04);
+    display: flex; flex-direction: column;
+  }
+  .preview {
+    aspect-ratio: 4 / 3;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    overflow: hidden;
+  }
+  .preview.dark   { background: var(--ink); }
+  .preview.light  { background: var(--paper); }
+  .preview.violet { background: var(--violet-2); }
+  .preview.check  {
+    background-image:
+      linear-gradient(45deg, #e8e3d4 25%, transparent 25%),
+      linear-gradient(-45deg, #e8e3d4 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #e8e3d4 75%),
+      linear-gradient(-45deg, transparent 75%, #e8e3d4 75%);
+    background-size: 14px 14px;
+    background-position: 0 0, 0 7px, 7px -7px, -7px 0;
+    background-color: #f6f3ff;
+  }
+  .preview img, .preview object { max-width: 90%; max-height: 100%; }
+  .preview .small-symbol object { max-height: 80px; max-width: 80px; }
+
+  .meta {
+    padding: 14px 16px;
+    border-top: 1px solid rgba(13,10,31,0.06);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+  }
+  .label {
+    font-size: 12px; font-weight: 600;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    flex: 1;
+  }
+  .filename {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    opacity: 0.55; letter-spacing: 0.04em;
+    margin-top: 2px;
+  }
+  .dl {
+    background: var(--ink); color: var(--paper);
+    text-decoration: none;
+    padding: 7px 12px; border-radius: 6px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: background 0.15s;
+    flex-shrink: 0;
+  }
+  .dl:hover { background: var(--violet-4); }
+
+  .readme {
+    max-width: 980px; margin: 64px auto 0;
+    background: #fff;
+    border-radius: 10px;
+    padding: 36px 44px;
+    box-shadow: 0 1px 0 rgba(13,10,31,0.06), 0 4px 14px rgba(13,10,31,0.04);
+  }
+  .readme h2 {
+    font-size: 18px; margin: 0 0 14px; letter-spacing: -0.01em;
+  }
+  .readme h3 {
+    font-size: 13px; margin: 20px 0 8px;
+    font-family: 'JetBrains Mono', monospace; font-weight: 500;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--violet-4);
+  }
+  .readme p, .readme li {
+    font-size: 14px; line-height: 1.65; opacity: 0.85;
+  }
+  .readme code {
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    background: rgba(13,10,31,0.06); padding: 1px 6px; border-radius: 3px;
+  }
+  .readme ul { padding-left: 18px; margin: 8px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">Occasio · asset pack</div>
+  <h1>Logos, símbolos y favicons</h1>
+  <p class="lede">
+    SVG vectoriales, listos para usar en web, redes y print. Click en "SVG" para descargar
+    cada archivo. Para producción impresa, convertí el texto a paths (Illustrator / Figma)
+    para evitar dependencia de la fuente.
+  </p>
+  <a class="nav-back" href="index.html">← volver al sistema</a>
+</div>
+
+<!-- ─── LOGO ─── -->
+<div class="group">
+  <div class="group-title">01 · Logo completo (wordmark + beam + analytics)</div>
+  <div class="grid">
+    <div class="card">
+      <div class="preview light"><object data="assets/svg/logo-color-on-light.svg" type="image/svg+xml"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Logo a color · light bg</div>
+          <div class="filename">logo-color-on-light.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/logo-color-on-light.svg" download>SVG</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview dark"><object data="assets/svg/logo-color-on-dark.svg" type="image/svg+xml"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Logo a color · dark bg</div>
+          <div class="filename">logo-color-on-dark.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/logo-color-on-dark.svg" download>SVG</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview light"><object data="assets/svg/logo-mono-black.svg" type="image/svg+xml"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Monocromo · 1 tinta negro</div>
+          <div class="filename">logo-mono-black.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/logo-mono-black.svg" download>SVG</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview dark"><object data="assets/svg/logo-mono-white.svg" type="image/svg+xml"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Monocromo · 1 tinta blanco</div>
+          <div class="filename">logo-mono-white.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/logo-mono-white.svg" download>SVG</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── WORDMARK ─── -->
+<div class="group">
+  <div class="group-title">02 · Wordmark sin subline</div>
+  <div class="grid">
+    <div class="card">
+      <div class="preview light"><object data="assets/svg/wordmark-only-on-light.svg" type="image/svg+xml"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Wordmark · light bg</div>
+          <div class="filename">wordmark-only-on-light.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/wordmark-only-on-light.svg" download>SVG</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview dark"><object data="assets/svg/wordmark-only-on-dark.svg" type="image/svg+xml"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Wordmark · dark bg</div>
+          <div class="filename">wordmark-only-on-dark.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/wordmark-only-on-dark.svg" download>SVG</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SYMBOL ─── -->
+<div class="group">
+  <div class="group-title">03 · Símbolo (para avatar, app icon, marca de agua)</div>
+  <div class="grid">
+    <div class="card">
+      <div class="preview check small-symbol"><object data="assets/svg/symbol-dark.svg" type="image/svg+xml" width="100" height="100"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Símbolo · dark</div>
+          <div class="filename">symbol-dark.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/symbol-dark.svg" download>SVG</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview check small-symbol"><object data="assets/svg/symbol-light.svg" type="image/svg+xml" width="100" height="100"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Símbolo · light</div>
+          <div class="filename">symbol-light.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/symbol-light.svg" download>SVG</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview check small-symbol"><object data="assets/svg/symbol-violet.svg" type="image/svg+xml" width="100" height="100"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Símbolo · violet</div>
+          <div class="filename">symbol-violet.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/symbol-violet.svg" download>SVG</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview check small-symbol"><object data="assets/svg/symbol-gradient.svg" type="image/svg+xml" width="100" height="100"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Símbolo · gradient</div>
+          <div class="filename">symbol-gradient.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/symbol-gradient.svg" download>SVG</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FAVICONS ─── -->
+<div class="group">
+  <div class="group-title">04 · Favicons & app icons (web)</div>
+  <div class="grid">
+    <div class="card">
+      <div class="preview check"><object data="assets/svg/favicon-32.svg" type="image/svg+xml" width="64" height="64"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Favicon · dark</div>
+          <div class="filename">favicon-32.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/favicon-32.svg" download>SVG</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview check"><object data="assets/svg/favicon-light.svg" type="image/svg+xml" width="64" height="64"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Favicon · light</div>
+          <div class="filename">favicon-light.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/favicon-light.svg" download>SVG</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="preview check"><object data="assets/svg/apple-touch-icon.svg" type="image/svg+xml" width="120" height="120"></object></div>
+      <div class="meta">
+        <div>
+          <div class="label">Apple touch icon · 180×180</div>
+          <div class="filename">apple-touch-icon.svg</div>
+        </div>
+        <a class="dl" href="assets/svg/apple-touch-icon.svg" download>SVG</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── README ─── -->
+<div class="readme">
+  <h2>Cómo usar los assets</h2>
+
+  <h3>Web</h3>
+  <p>
+    Embebé los SVGs directamente. Para el favicon, añadí esto en el <code>&lt;head&gt;</code>:
+  </p>
+  <p>
+    <code>&lt;link rel="icon" type="image/svg+xml" href="/assets/favicon-32.svg" /&gt;</code><br/>
+    <code>&lt;link rel="apple-touch-icon" href="/assets/apple-touch-icon.svg" /&gt;</code>
+  </p>
+
+  <h3>Print / Office</h3>
+  <p>
+    Los SVGs usan <b>Manrope</b> y <b>JetBrains Mono</b> via Google Fonts. Para producción
+    impresa o documentos sin internet:
+  </p>
+  <ul>
+    <li>Instalá ambas fuentes (gratis en Google Fonts) en el sistema antes de abrirlos.</li>
+    <li>Para máxima fidelidad, abrí el SVG en Illustrator/Figma y convertí el texto a paths
+        (<code>Object &gt; Convert to Paths</code>). Eso elimina dependencia de la fuente.</li>
+  </ul>
+
+  <h3>Redes sociales (Instagram, LinkedIn)</h3>
+  <p>
+    Las plataformas necesitan PNG/JPG. Abrí cualquier SVG en una pestaña del browser,
+    hacé screenshot a la resolución deseada, o usá una herramienta de conversión
+    (CloudConvert, Squoosh). El símbolo cuadrado (200×200) es ideal para avatar
+    a 400×400 o 800×800.
+  </p>
+
+  <h3>Colores oficiales (HEX)</h3>
+  <p>
+    <code>#0D0A1F</code> ink · <code>#1A1334</code> ink mid · <code>#6D4ED8</code> violet 4 ·
+    <code>#8B5CF6</code> violet 2 · <code>#A78BFA</code> violet · <code>#C4B5FD</code> violet 3 ·
+    <code>#F6F3FF</code> paper
+  </p>
+
+  <h3>El beam</h3>
+  <p>
+    Gradiente horizontal único: <code>linear-gradient(90deg, rgba(167,139,250,0.05), #8b5cf6 65%, #a78bfa 100%)</code>.
+    Nunca rotar, nunca invertir.
+  </p>
+</div>
+
+</body>
+</html>

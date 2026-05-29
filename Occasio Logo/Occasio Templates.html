@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Occasio · Templates</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="assets/svg/favicon-32.svg" />
+
+<style>
+  :root {
+    --ink:      #0d0a1f;
+    --ink-2:    #1a1334;
+    --paper:    #f6f3ff;
+    --paper-2:  #ece6ff;
+    --violet:   #a78bfa;
+    --violet-2: #8b5cf6;
+    --violet-3: #c4b5fd;
+    --violet-4: #6d4ed8;
+    --beam:     linear-gradient(90deg, rgba(167,139,250,0.05), #8b5cf6 65%, #a78bfa 100%);
+  }
+  html, body { margin: 0; padding: 0; background: #08061a; }
+  body { font-family: 'Manrope', sans-serif; }
+
+  /* Each slide is 1920×1080 */
+  deck-stage > section {
+    width: 1920px; height: 1080px;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    color: var(--paper);
+    font-family: 'Manrope', sans-serif;
+    background: var(--ink);
+  }
+
+  /* ─── Reusable atoms ─── */
+  .kairos-lockup {
+    display: inline-flex; flex-direction: column; align-items: flex-start;
+    align-self: flex-start;
+    gap: 14px;
+  }
+  .kairos-word {
+    font-weight: 600; font-size: 36px; letter-spacing: 0.16em; line-height: 1;
+    text-indent: 0.16em;
+  }
+  .kairos-beam {
+    align-self: stretch; height: 3px; background: var(--beam);
+  }
+  .kairos-sub {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.42em; text-transform: uppercase; opacity: 0.6;
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+  .kairos-lockup.lg .kairos-word { font-size: 88px; }
+  .kairos-lockup.lg .kairos-beam { height: 6px; }
+  .kairos-lockup.lg .kairos-sub { font-size: 22px; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 22px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--violet-3);
+  }
+  .eyebrow.muted { color: var(--paper); opacity: 0.55; }
+  .eyebrow.violet-ink { color: var(--violet-4); }
+
+  .title-xl {
+    font-weight: 700; font-size: 120px; line-height: 0.95; letter-spacing: -0.035em;
+  }
+  .title-l {
+    font-weight: 700; font-size: 88px; line-height: 1.0; letter-spacing: -0.03em;
+  }
+  .title-m {
+    font-weight: 700; font-size: 64px; line-height: 1.05; letter-spacing: -0.025em;
+  }
+  .body-l {
+    font-weight: 400; font-size: 30px; line-height: 1.5; opacity: 0.85;
+  }
+  .body-m {
+    font-weight: 400; font-size: 24px; line-height: 1.55; opacity: 0.82;
+  }
+  .accent { color: var(--violet); }
+  .accent-ink { color: var(--violet-4); }
+
+  .footer {
+    position: absolute; left: 96px; right: 96px; bottom: 56px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: 'JetBrains Mono', monospace; font-size: 18px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.45;
+  }
+  .footer.ink { color: var(--ink); opacity: 0.55; }
+
+  /* radial backgrounds */
+  .bg-dark-radial { background: radial-gradient(circle at 70% 30%, #2d1f5e 0%, #0d0a1f 60%, #08061a 100%) !important; }
+  .bg-paper { background: var(--paper) !important; color: var(--ink) !important; }
+  .bg-violet { background: var(--violet-2) !important; }
+
+  /* ─── slide-specific layouts ─── */
+  .padded {
+    padding: 96px 96px 120px;
+    display: flex; flex-direction: column;
+    height: 100%; box-sizing: border-box;
+  }
+
+  .cover-center {
+    display: flex; flex-direction: column; justify-content: space-between;
+    height: 100%; padding: 96px;
+    box-sizing: border-box;
+  }
+  .cover-center .body-block {
+    margin-top: auto;
+  }
+
+  .agenda-list {
+    margin-top: 56px;
+    display: flex; flex-direction: column; gap: 32px;
+  }
+  .agenda-row {
+    display: flex; gap: 36px; align-items: baseline;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(246,243,255,0.12);
+  }
+  .agenda-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 28px;
+    color: var(--violet-3); letter-spacing: 0.1em; width: 110px;
+  }
+  .agenda-title {
+    font-size: 42px; font-weight: 600; letter-spacing: -0.02em;
+    flex: 1;
+  }
+  .agenda-time {
+    font-family: 'JetBrains Mono', monospace; font-size: 22px;
+    opacity: 0.55; letter-spacing: 0.08em;
+  }
+
+  .section-divider {
+    display: grid; grid-template-columns: 360px 1fr; align-items: center; gap: 64px;
+    height: 100%; padding: 96px;
+    box-sizing: border-box;
+  }
+  .big-num {
+    font-weight: 800; font-size: 320px; line-height: 0.85; letter-spacing: -0.04em;
+    color: var(--violet);
+  }
+
+  .two-col {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 96px;
+    margin-top: 64px;
+  }
+
+  .stat-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px;
+    margin-top: 96px;
+  }
+  .stat .num {
+    font-weight: 800; font-size: 140px; line-height: 1; letter-spacing: -0.04em;
+    background: linear-gradient(135deg, #6d4ed8, #8b5cf6 60%, #a78bfa);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .stat .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 20px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    opacity: 0.6; margin-top: 24px;
+  }
+
+  .quote {
+    font-weight: 400; font-size: 84px; line-height: 1.1; letter-spacing: -0.025em;
+    font-style: italic;
+  }
+  .quote .accent-mark { color: var(--violet); }
+  .quote-cite {
+    margin-top: 64px;
+    font-family: 'JetBrains Mono', monospace; font-size: 22px;
+    letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.6;
+  }
+
+  .process-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 56px;
+    margin-top: 96px;
+  }
+  .process-step {
+    display: flex; flex-direction: column; gap: 24px;
+    padding: 40px;
+    background: rgba(167,139,250,0.06);
+    border-left: 3px solid var(--violet);
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace; font-size: 22px;
+    letter-spacing: 0.2em; color: var(--violet-3);
+  }
+  .step-title {
+    font-weight: 600; font-size: 36px; line-height: 1.1; letter-spacing: -0.02em;
+  }
+  .step-body {
+    font-size: 20px; line-height: 1.55; opacity: 0.8;
+  }
+
+  /* Pricing */
+  .pricing-table {
+    margin-top: 64px;
+    border-top: 1px solid rgba(246,243,255,0.18);
+  }
+  .pricing-row {
+    display: grid; grid-template-columns: 60px 1fr 200px 200px;
+    align-items: baseline;
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(246,243,255,0.12);
+  }
+  .pricing-row.head {
+    font-family: 'JetBrains Mono', monospace; font-size: 16px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    opacity: 0.55; padding: 20px 0;
+  }
+  .pricing-row .name { font-size: 26px; font-weight: 500; }
+  .pricing-row .desc { font-size: 18px; opacity: 0.65; margin-top: 6px; }
+  .pricing-row .qty, .pricing-row .price { font-family: 'JetBrains Mono', monospace; font-size: 24px; text-align: right; }
+  .pricing-row .num { font-family: 'JetBrains Mono', monospace; font-size: 22px; color: var(--violet-3); }
+  .pricing-total {
+    display: flex; justify-content: flex-end; align-items: baseline; gap: 40px;
+    margin-top: 56px;
+  }
+  .pricing-total .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 20px;
+    letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.6;
+  }
+  .pricing-total .amount {
+    font-family: 'Manrope'; font-weight: 700; font-size: 96px;
+    background: linear-gradient(135deg, #6d4ed8, #8b5cf6 60%, #a78bfa);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    letter-spacing: -0.03em;
+  }
+
+  /* Invoice (light bg) */
+  .invoice {
+    padding: 96px; height: 100%; box-sizing: border-box;
+    display: flex; flex-direction: column;
+  }
+  .invoice-head {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding-bottom: 56px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .invoice-meta {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace; font-size: 18px;
+    letter-spacing: 0.06em; line-height: 1.8;
+  }
+  .invoice-meta .label { opacity: 0.55; }
+  .invoice-meta .num { font-weight: 500; }
+  .invoice-parties {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 96px;
+    margin-top: 56px;
+  }
+  .invoice-parties .label {
+    font-family: 'JetBrains Mono', monospace; font-size: 16px;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    opacity: 0.55; margin-bottom: 14px;
+  }
+  .invoice-parties .name { font-size: 28px; font-weight: 600; }
+  .invoice-parties .addr { font-size: 20px; line-height: 1.55; opacity: 0.7; margin-top: 8px; }
+
+  .invoice-table {
+    margin-top: 56px;
+  }
+  .invoice-table .pricing-row { border-color: rgba(13,10,31,0.12); }
+  .invoice-table .pricing-row.head { opacity: 0.55; }
+
+  .invoice-bottom {
+    margin-top: auto;
+    display: grid; grid-template-columns: 1fr 360px; gap: 64px;
+    align-items: end;
+  }
+  .invoice-payment {
+    font-family: 'JetBrains Mono', monospace; font-size: 18px;
+    line-height: 1.8; letter-spacing: 0.06em;
+  }
+  .invoice-payment .label { opacity: 0.55; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; }
+
+  .invoice-totals {
+    display: flex; flex-direction: column; gap: 16px;
+    border-top: 2px solid var(--ink); padding-top: 24px;
+  }
+  .invoice-totals .row {
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace; font-size: 20px;
+  }
+  .invoice-totals .row.grand {
+    font-family: 'Manrope'; font-weight: 700; font-size: 36px;
+    color: var(--violet-4); letter-spacing: -0.02em;
+    padding-top: 16px; border-top: 1px solid rgba(13,10,31,0.18);
+  }
+
+  /* Closing */
+  .closing-center {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    height: 100%; padding: 96px;
+    box-sizing: border-box; text-align: center;
+  }
+  .signature-block {
+    margin-top: 96px;
+    display: flex; gap: 64px; align-items: center;
+  }
+  .sig-line { width: 220px; height: 1px; background: rgba(246,243,255,0.3); }
+
+  /* Print/PDF: hide deck chrome */
+  @media print {
+    body { background: #fff; }
+    deck-stage > section { box-shadow: none; }
+  }
+</style>
+
+<script type="application/json" id="speaker-notes">[
+  "Slide cover — para inicio de propuesta o pitch. Tamaño completo 1920×1080.",
+  "Agenda — para mostrar el camino del documento o reunión.",
+  "Divisor de sección — entre capítulos largos. El número grande captura la atención.",
+  "Slide de contenido principal — un mensaje claro con cuerpo explicativo.",
+  "Dos columnas — cuando hay un contraste o un antes/después.",
+  "Stats — para impacto numérico. Hasta 3 stats por slide.",
+  "Quote — para citas de cliente o frases ancla.",
+  "Proceso — 3 pasos. Si necesitás más, dividir en dos slides.",
+  "Pricing / Investment — para mostrar costo del engagement.",
+  "Invoice — modelo de factura formal en fondo claro.",
+  "Closing — última slide, llamada a la acción + datos de contacto."
+]</script>
+</head>
+<body>
+
+<deck-stage>
+
+<!-- 01 · COVER ─────────────────────────────────────────── -->
+<section class="bg-dark-radial" data-screen-label="01 Cover">
+  <div class="cover-center">
+    <div class="kairos-lockup">
+      <div class="kairos-word">OCCASIO</div>
+      <div class="kairos-beam"></div>
+      <div class="kairos-sub">S T R A T E G Y</div>
+    </div>
+    <div class="body-block">
+      <div class="eyebrow">· Engagement proposal · 2026</div>
+      <div class="title-xl" style="margin-top: 32px; max-width: 1500px;">
+        Acting on the <span class="accent">right</span> moment.
+      </div>
+      <div class="body-l" style="margin-top: 56px; max-width: 1000px;">
+        Una propuesta para diseñar el sistema analítico de [cliente].
+        Pablo Avenali · Founder · Occasio Strategy.
+      </div>
+    </div>
+    <div class="footer">
+      <span>Pablo Avenali · Founder</span>
+      <span>occasio.com · Q2 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · AGENDA ─────────────────────────────────────────── -->
+<section data-screen-label="02 Agenda">
+  <div class="padded">
+    <div class="eyebrow muted">· Index</div>
+    <div class="title-l" style="margin-top: 32px;">Agenda</div>
+
+    <div class="agenda-list">
+      <div class="agenda-row">
+        <div class="agenda-num">01</div>
+        <div class="agenda-title">Context · why now</div>
+        <div class="agenda-time">5 min</div>
+      </div>
+      <div class="agenda-row">
+        <div class="agenda-num">02</div>
+        <div class="agenda-title">Approach · our method</div>
+        <div class="agenda-time">12 min</div>
+      </div>
+      <div class="agenda-row">
+        <div class="agenda-num">03</div>
+        <div class="agenda-title">Deliverables · scope</div>
+        <div class="agenda-time">8 min</div>
+      </div>
+      <div class="agenda-row">
+        <div class="agenda-num">04</div>
+        <div class="agenda-title">Investment · pricing</div>
+        <div class="agenda-time">5 min</div>
+      </div>
+      <div class="agenda-row">
+        <div class="agenda-num">05</div>
+        <div class="agenda-title">Next steps</div>
+        <div class="agenda-time">3 min</div>
+      </div>
+    </div>
+    <div class="footer">
+      <span>Occasio · Proposal Q2 2026</span>
+      <span>02 / 11</span>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · SECTION DIVIDER ─────────────────────────────────── -->
+<section class="bg-dark-radial" data-screen-label="03 Section divider">
+  <div class="section-divider">
+    <div class="big-num">02</div>
+    <div>
+      <div class="eyebrow">· Section</div>
+      <div class="title-l" style="margin-top: 24px;">Approach</div>
+      <div class="body-l" style="margin-top: 32px; max-width: 800px;">
+        Cómo trabajamos. Tres principios y un proceso.
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span>Occasio · Proposal Q2 2026</span>
+    <span>03 / 11</span>
+  </div>
+</section>
+
+<!-- 04 · CONTENT (body) ─────────────────────────────────── -->
+<section data-screen-label="04 Content">
+  <div class="padded">
+    <div class="eyebrow muted">· Context</div>
+    <div class="title-l" style="margin-top: 28px; max-width: 1500px;">
+      The problem isn't data.
+      <br/>
+      It's <span class="accent">when</span> to act on it.
+    </div>
+    <div class="body-l" style="margin-top: 56px; max-width: 1300px;">
+      Enterprises today drown in dashboards that nobody opens. The bottleneck isn't
+      collection — it's reading the right signal at the right moment. Occasio exists
+      to compress the gap between data and decision.
+    </div>
+    <div class="footer">
+      <span>Occasio · Proposal Q2 2026</span>
+      <span>04 / 11</span>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · TWO COLUMNS ────────────────────────────────────── -->
+<section data-screen-label="05 Two columns">
+  <div class="padded">
+    <div class="eyebrow muted">· Before / after</div>
+    <div class="title-m" style="margin-top: 28px;">From <span class="accent">data piles</span> to decisions.</div>
+
+    <div class="two-col">
+      <div>
+        <div class="eyebrow" style="font-size: 18px;">— Today</div>
+        <div class="body-l" style="margin-top: 24px;">
+          ・ 23 dashboards built last year<br/>
+          ・ ~4% opened weekly by ops<br/>
+          ・ Decision lag: 11–18 days<br/>
+          ・ $2.4M annual data infrastructure spend
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow" style="font-size: 18px;">— With Occasio</div>
+        <div class="body-l" style="margin-top: 24px;">
+          ・ 3 decision surfaces, embedded in workflow<br/>
+          ・ Daily usage by ops + execs<br/>
+          ・ Decision lag: 24h<br/>
+          ・ Same spend, 6× ROI on dashboards
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <span>Occasio · Proposal Q2 2026</span>
+      <span>05 / 11</span>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · STATS ───────────────────────────────────────────── -->
+<section class="bg-dark-radial" data-screen-label="06 Stats">
+  <div class="padded">
+    <div class="eyebrow">· Track record · 20+ years</div>
+    <div class="title-m" style="margin-top: 28px; max-width: 1400px;">
+      Numbers from our work
+      <br/>
+      across <span class="accent">Accenture, HSBC, Telefónica</span>.
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="num">$30M</div>
+        <div class="label">Revenue uplift delivered</div>
+      </div>
+      <div class="stat">
+        <div class="num">40%</div>
+        <div class="label">Cloud cost reduction</div>
+      </div>
+      <div class="stat">
+        <div class="num">25%</div>
+        <div class="label">Customer churn reduced</div>
+      </div>
+    </div>
+    <div class="footer">
+      <span>Occasio · Proposal Q2 2026</span>
+      <span>06 / 11</span>
+    </div>
+  </div>
+</section>
+
+<!-- 07 · QUOTE ──────────────────────────────────────────── -->
+<section data-screen-label="07 Quote">
+  <div class="padded">
+    <div class="eyebrow muted">· Client</div>
+    <div style="margin-top: 80px; max-width: 1500px;">
+      <div class="quote">
+        <span class="accent-mark">"</span>
+        Occasio turned our analytics team from
+        report-builders into decision-makers
+        <span class="accent-mark">"</span>
+      </div>
+      <div class="quote-cite">
+        — Director of Operations · HSBC Latam
+      </div>
+    </div>
+    <div class="footer">
+      <span>Occasio · Proposal Q2 2026</span>
+      <span>07 / 11</span>
+    </div>
+  </div>
+</section>
+
+<!-- 08 · PROCESS ───────────────────────────────────────── -->
+<section data-screen-label="08 Process">
+  <div class="padded">
+    <div class="eyebrow muted">· Our method</div>
+    <div class="title-m" style="margin-top: 28px;">Three phases, twelve weeks.</div>
+
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-num">01 · Weeks 1–3</div>
+        <div class="step-title">Listen</div>
+        <div class="step-body">
+          Mapeamos decisiones críticas, datos existentes y gaps. No dashboards yet —
+          solo conversaciones con quien decide y quien ejecuta.
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02 · Weeks 4–8</div>
+        <div class="step-title">Design</div>
+        <div class="step-body">
+          Diseñamos las decision surfaces: qué pregunta, qué dato, qué acción.
+          Prototipo iterativo con stakeholders.
+        </div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03 · Weeks 9–12</div>
+        <div class="step-title">Ship & embed</div>
+        <div class="step-body">
+          Implementación junto a tu equipo de data + workflow training.
+          Salimos cuando tu equipo opera autónomo.
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <span>Occasio · Proposal Q2 2026</span>
+      <span>08 / 11</span>
+    </div>
+  </div>
+</section>
+
+<!-- 09 · PRICING ────────────────────────────────────────── -->
+<section data-screen-label="09 Pricing">
+  <div class="padded">
+    <div class="eyebrow muted">· Investment</div>
+    <div class="title-m" style="margin-top: 28px;">Engagement breakdown.</div>
+
+    <div class="pricing-table">
+      <div class="pricing-row head">
+        <div>#</div><div>Item</div><div style="text-align:right;">Qty</div><div style="text-align:right;">USD</div>
+      </div>
+      <div class="pricing-row">
+        <div class="num">01</div>
+        <div>
+          <div class="name">Discovery & decision mapping</div>
+          <div class="desc">Weeks 1–3 · stakeholder interviews + audit</div>
+        </div>
+        <div class="qty">3 wk</div>
+        <div class="price">$18,000</div>
+      </div>
+      <div class="pricing-row">
+        <div class="num">02</div>
+        <div>
+          <div class="name">Decision surface design</div>
+          <div class="desc">Weeks 4–8 · prototypes + iteration</div>
+        </div>
+        <div class="qty">5 wk</div>
+        <div class="price">$32,000</div>
+      </div>
+      <div class="pricing-row">
+        <div class="num">03</div>
+        <div>
+          <div class="name">Implementation & training</div>
+          <div class="desc">Weeks 9–12 · build + handoff to internal team</div>
+        </div>
+        <div class="qty">4 wk</div>
+        <div class="price">$26,000</div>
+      </div>
+    </div>
+
+    <div class="pricing-total">
+      <div class="label">Total · 12 weeks</div>
+      <div class="amount">$76,000</div>
+    </div>
+    <div class="footer">
+      <span>Occasio · Proposal Q2 2026</span>
+      <span>09 / 11</span>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · INVOICE (paper bg) ─────────────────────────────── -->
+<section class="bg-paper" data-screen-label="10 Invoice">
+  <div class="invoice">
+    <div class="invoice-head">
+      <div class="kairos-lockup">
+        <div class="kairos-word">OCCASIO</div>
+        <div class="kairos-beam"></div>
+        <div class="kairos-sub">S T R A T E G Y</div>
+      </div>
+      <div class="invoice-meta">
+        <div><span class="label">Invoice</span> <span class="num">— K-2026-014</span></div>
+        <div><span class="label">Issued</span> <span class="num">— 24 May 2026</span></div>
+        <div><span class="label">Due</span> <span class="num">— 24 June 2026</span></div>
+      </div>
+    </div>
+
+    <div class="invoice-parties">
+      <div>
+        <div class="label">From</div>
+        <div class="name">Occasio Strategy</div>
+        <div class="addr">
+          Pablo Avenali, Founder<br/>
+          Av. del Libertador 1234, Piso 8<br/>
+          C1428 Buenos Aires · Argentina<br/>
+          CUIT 20-XXXXXXXX-X
+        </div>
+      </div>
+      <div>
+        <div class="label">Billed to</div>
+        <div class="name">HSBC Latam · Operations</div>
+        <div class="addr">
+          Att: Director of Operations<br/>
+          Av. Corrientes 800, Piso 12<br/>
+          C1043 Buenos Aires · Argentina<br/>
+          PO: HSBC-2026-OPS-104
+        </div>
+      </div>
+    </div>
+
+    <div class="invoice-table">
+      <div class="pricing-row head" style="color: var(--ink); border-color: rgba(13,10,31,0.18);">
+        <div>#</div><div>Item</div><div style="text-align:right;">Qty</div><div style="text-align:right;">USD</div>
+      </div>
+      <div class="pricing-row">
+        <div class="num" style="color: var(--violet-4);">01</div>
+        <div>
+          <div class="name" style="color: var(--ink);">Discovery & decision mapping</div>
+          <div class="desc" style="color: rgba(13,10,31,0.65);">Weeks 1–3 · completed 14 May 2026</div>
+        </div>
+        <div class="qty" style="color: var(--ink);">3 wk</div>
+        <div class="price" style="color: var(--ink);">$18,000</div>
+      </div>
+      <div class="pricing-row">
+        <div class="num" style="color: var(--violet-4);">02</div>
+        <div>
+          <div class="name" style="color: var(--ink);">Decision surface design — milestone 1</div>
+          <div class="desc" style="color: rgba(13,10,31,0.65);">Week 4 partial · 30% advance</div>
+        </div>
+        <div class="qty" style="color: var(--ink);">1 wk</div>
+        <div class="price" style="color: var(--ink);">$9,600</div>
+      </div>
+    </div>
+
+    <div class="invoice-bottom">
+      <div class="invoice-payment">
+        <div class="label">Payment instructions</div>
+        Wire transfer · USD<br/>
+        Bank: HSBC Argentina<br/>
+        Account: 0123-456789-01<br/>
+        SWIFT: BACOARBA · CBU 0150999900000123456789
+      </div>
+      <div class="invoice-totals">
+        <div class="row"><span>Subtotal</span><span>$27,600.00</span></div>
+        <div class="row"><span>Tax (exempt)</span><span>$0.00</span></div>
+        <div class="row grand"><span>Total due</span><span>$27,600.00</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · CLOSING ─────────────────────────────────────────── -->
+<section class="bg-dark-radial" data-screen-label="11 Closing">
+  <div class="closing-center">
+    <div class="eyebrow">· Next step</div>
+    <div class="title-xl" style="margin-top: 32px; max-width: 1500px;">
+      Ready when <span class="accent">you</span> are.
+    </div>
+    <div class="body-l" style="margin-top: 48px; max-width: 1100px;">
+      Reply to confirm scope and kickoff date. We block 12 weeks starting the Monday
+      after signature.
+    </div>
+
+    <div class="signature-block">
+      <div>
+        <div style="font-weight: 600; font-size: 32px;">Pablo Avenali</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.55; margin-top: 8px;">
+          Founder · Occasio Strategy
+        </div>
+      </div>
+      <div class="sig-line"></div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 18px; letter-spacing: 0.06em;">
+        pablo@occasio.com<br/>
+        +54 11 5555 5555
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>Occasio · occasio.com</span>
+      <span>11 / 11 · End</span>
+    </div>
+  </div>
+</section>
+
+</deck-stage>
+
+<script src="deck-stage.js"></script>
+</body>
+</html>

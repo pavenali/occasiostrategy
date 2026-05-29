@@ -1,0 +1,657 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Occasio · Brand Book (Print)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="assets/svg/favicon-32.svg" />
+<style>
+  :root {
+    --ink:      #0d0a1f;
+    --ink-2:    #1a1334;
+    --paper:    #f6f3ff;
+    --paper-2:  #ece6ff;
+    --violet:   #a78bfa;
+    --violet-2: #8b5cf6;
+    --violet-3: #c4b5fd;
+    --violet-4: #6d4ed8;
+    --beam:     linear-gradient(90deg, rgba(167,139,250,0.05), #8b5cf6 65%, #a78bfa 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #d5d1c4;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+
+  /* Screen mode: stack pages with gap; Print: each page is A4 */
+  .page {
+    width: 210mm; height: 297mm;
+    margin: 14mm auto;
+    background: #fff;
+    box-shadow: 0 14px 40px rgba(13,10,31,0.18);
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+    padding: 22mm 20mm;
+  }
+  .page.dark { background: var(--ink); color: var(--paper); }
+  .page:last-child { page-break-after: auto; }
+
+  /* Header & footer common */
+  .page-header {
+    position: absolute; top: 12mm; left: 20mm; right: 20mm;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.55;
+  }
+  .page-footer {
+    position: absolute; bottom: 12mm; left: 20mm; right: 20mm;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.55;
+  }
+  .page-footer .beam-rule {
+    flex: 0 0 auto; width: 60px; height: 1.5px;
+    background: var(--beam);
+    margin: 0 14px;
+  }
+
+  /* Wordmark recipe */
+  .kw {
+    display: inline-flex; flex-direction: column; align-items: flex-start;
+    align-self: flex-start;
+  }
+  .kw-word { font-weight: 600; font-size: 12pt; letter-spacing: 0.16em; line-height: 1; text-indent: 0.16em; }
+  .kw-beam { align-self: stretch; height: 1.5px; background: var(--beam); margin-top: 6px; }
+  .kw-sub  { font-family: 'JetBrains Mono', monospace; font-size: 6px; letter-spacing: 0.42em; text-transform: uppercase; opacity: 0.65; margin-top: 4px; white-space: nowrap; }
+  .kw.lg .kw-word { font-size: 32pt; }
+  .kw.lg .kw-beam { height: 4px; }
+  .kw.lg .kw-sub  { font-size: 9pt; }
+  .kw.xl .kw-word { font-size: 48pt; }
+  .kw.xl .kw-beam { height: 5px; }
+  .kw.xl .kw-sub  { font-size: 11pt; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 9pt;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--violet-4); margin-bottom: 8mm;
+  }
+  .page.dark .eyebrow { color: var(--violet-3); }
+  .h1 { font-weight: 700; font-size: 32pt; letter-spacing: -0.025em; line-height: 1.05; }
+  .h2 { font-weight: 700; font-size: 20pt; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 6mm; }
+  .body { font-size: 11pt; line-height: 1.55; opacity: 0.85; max-width: 130mm; }
+  .body.small { font-size: 10pt; }
+  .accent { color: var(--violet-4); }
+  .page.dark .accent { color: var(--violet); }
+
+  /* Cover */
+  .cover {
+    height: 100%;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 0;
+  }
+  .cover-title { display: flex; flex-direction: column; gap: 6mm; }
+
+  /* TOC */
+  .toc { display: flex; flex-direction: column; gap: 8mm; margin-top: 14mm; }
+  .toc-row { display: flex; align-items: baseline; gap: 8mm; padding-bottom: 4mm; border-bottom: 1px solid rgba(13,10,31,0.12); }
+  .toc-num { font-family: 'JetBrains Mono', monospace; font-size: 10pt; color: var(--violet-4); letter-spacing: 0.1em; width: 28mm; }
+  .toc-title { font-size: 16pt; font-weight: 500; letter-spacing: -0.01em; flex: 1; }
+  .toc-page { font-family: 'JetBrains Mono', monospace; font-size: 10pt; opacity: 0.55; }
+
+  /* Swatch grid */
+  .swatch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8mm; margin-top: 8mm; }
+  .swatch { display: flex; flex-direction: column; gap: 3mm; }
+  .swatch .chip { height: 40mm; border-radius: 2mm; border: 1px solid rgba(13,10,31,0.06); }
+  .swatch .name { font-size: 11pt; font-weight: 600; }
+  .swatch .hex  { font-family: 'JetBrains Mono', monospace; font-size: 9pt; opacity: 0.6; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* Type specimen */
+  .type-block { margin-top: 6mm; padding-bottom: 8mm; border-bottom: 1px solid rgba(13,10,31,0.1); }
+  .type-block:last-child { border-bottom: none; }
+  .type-label { font-family: 'JetBrains Mono', monospace; font-size: 9pt; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.55; margin-bottom: 4mm; }
+  .type-sample { font-size: 28pt; line-height: 1; }
+  .type-weights { font-size: 10pt; opacity: 0.7; margin-top: 4mm; }
+
+  /* Logo specimen grid */
+  .logo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 6mm; }
+  .logo-cell {
+    height: 56mm; display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(13,10,31,0.06);
+    border-radius: 2mm;
+    position: relative;
+    overflow: hidden;
+  }
+  .logo-cell.dark { background: var(--ink); color: var(--paper); border-color: transparent; }
+  .logo-cell.violet { background: var(--violet-2); color: var(--paper); border-color: transparent; }
+  .logo-cell .cell-label {
+    position: absolute; bottom: 4mm; left: 5mm;
+    font-family: 'JetBrains Mono', monospace; font-size: 7pt;
+    letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55;
+  }
+
+  /* Symbol blocks */
+  .symbol-row { display: flex; gap: 6mm; margin-top: 6mm; align-items: flex-end; }
+  .symbol-cell { display: flex; flex-direction: column; align-items: center; gap: 4mm; }
+
+  .symbol {
+    width: 36mm; height: 36mm; border-radius: 6mm;
+    background: var(--ink); color: var(--paper);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1.5mm;
+  }
+  .symbol.light { background: var(--paper); color: var(--ink); border: 1px solid rgba(13,10,31,0.06); }
+  .symbol.violet { background: var(--violet-2); color: var(--paper); }
+  .symbol.gradient { background: linear-gradient(135deg, var(--violet-4), var(--ink) 65%); color: var(--paper); }
+  .symbol .k { font-weight: 700; font-size: 36pt; letter-spacing: -0.04em; line-height: 1; }
+  .symbol .b { width: 18mm; height: 1.5mm; background: var(--beam); }
+  .symbol.light .b, .symbol.gradient .b, .symbol.violet .b {
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), #fff 60%, var(--violet-3));
+  }
+  .symbol.light .b { background: var(--beam); }
+
+  .symbol-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 8pt;
+    letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.6;
+  }
+
+  /* Rules */
+  .rule-block { margin-top: 6mm; padding: 6mm; background: var(--paper-2); border-radius: 2mm; }
+  .rule-block .rule-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 9pt;
+    letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.7;
+    color: var(--violet-4); margin-bottom: 3mm;
+  }
+
+  /* Don'ts row */
+  .donts-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; margin-top: 6mm; }
+  .dont {
+    display: flex; flex-direction: column; gap: 3mm;
+  }
+  .dont-frame {
+    height: 36mm; background: var(--ink); color: var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; border-radius: 2mm;
+  }
+  .dont-x {
+    position: absolute; top: 2mm; right: 2mm;
+    width: 5mm; height: 5mm; border-radius: 50%;
+    background: #e94e6b; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8pt; font-weight: 700;
+  }
+  .dont-label { font-family: 'JetBrains Mono', monospace; font-size: 7.5pt; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; text-align: center; }
+
+  /* Applications grid */
+  .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; margin-top: 6mm; }
+  .app-cell {
+    border: 1px solid rgba(13,10,31,0.06);
+    border-radius: 2mm;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    position: relative;
+  }
+  .app-cell.dark { background: var(--ink); color: var(--paper); border-color: transparent; }
+  .app-cell .app-label {
+    position: absolute; bottom: 3mm; left: 4mm;
+    font-family: 'JetBrains Mono', monospace; font-size: 7pt;
+    letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.55;
+  }
+  .app-cell .app-body {
+    padding: 6mm; height: 100%; display: flex; flex-direction: column; justify-content: space-between;
+  }
+
+  /* Cover SVG decoration */
+  .cover-arc {
+    position: absolute; right: -80mm; top: 30%; width: 200mm; height: 200mm;
+    border-radius: 50%; border: 1px solid rgba(167,139,250,0.2);
+  }
+  .cover-arc.inner { right: -60mm; top: 35%; width: 160mm; height: 160mm; border-color: rgba(167,139,250,0.3); }
+
+  /* Print rules */
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  @media print {
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; }
+    .print-cta { display: none !important; }
+  }
+
+  /* Print CTA banner (only on screen) */
+  .print-cta {
+    position: fixed; top: 16px; right: 16px; z-index: 99;
+    background: var(--violet-4); color: var(--paper);
+    padding: 10px 16px; border-radius: 999px;
+    font-family: 'Manrope', sans-serif; font-size: 12px; font-weight: 600;
+    cursor: pointer; border: 0;
+    box-shadow: 0 6px 18px rgba(109,78,216,0.4);
+  }
+  .print-cta:hover { background: var(--violet-2); }
+</style>
+</head>
+<body>
+
+<button class="print-cta" onclick="window.print()">⌘P · Guardar como PDF</button>
+
+<!-- ──────────────── PAGE 1 · COVER ──────────────── -->
+<div class="page dark">
+  <div class="cover-arc"></div>
+  <div class="cover-arc inner"></div>
+
+  <div class="cover">
+    <div class="kw">
+      <div class="kw-word">OCCASIO</div>
+      <div class="kw-beam"></div>
+      <div class="kw-sub">S T R A T E G Y</div>
+    </div>
+
+    <div class="cover-title">
+      <div class="eyebrow" style="margin-bottom: 4mm;">· Brand book · v1.0 · May 2026</div>
+      <div class="h1" style="font-size: 44pt; max-width: 150mm;">
+        The opportune
+        <br/>
+        <span class="accent">moment</span> for data.
+      </div>
+      <div class="body" style="margin-top: 8mm; max-width: 130mm; opacity: 0.75;">
+        Sistema de marca de Occasio Strategy: identidad, paleta, tipografía, símbolo,
+        y aplicaciones para web, redes y print.
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; opacity: 0.55;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 9pt; letter-spacing: 0.18em; text-transform: uppercase;">
+        Pablo Avenali · Founder
+      </div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 9pt; letter-spacing: 0.18em; text-transform: uppercase;">
+        occasio.com
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────── PAGE 2 · INDEX ──────────────── -->
+<div class="page">
+  <div class="page-header"><span>· Brand book v1.0</span><span>Occasio Strategy</span></div>
+
+  <div class="eyebrow">· Contents</div>
+  <div class="h1">Índice</div>
+
+  <div class="toc">
+    <div class="toc-row"><div class="toc-num">01</div><div class="toc-title">Esencia · qué es Occasio</div><div class="toc-page">03</div></div>
+    <div class="toc-row"><div class="toc-num">02</div><div class="toc-title">Paleta</div><div class="toc-page">04</div></div>
+    <div class="toc-row"><div class="toc-num">03</div><div class="toc-title">Tipografía</div><div class="toc-page">05</div></div>
+    <div class="toc-row"><div class="toc-num">04</div><div class="toc-title">Logo · variantes</div><div class="toc-page">06</div></div>
+    <div class="toc-row"><div class="toc-num">05</div><div class="toc-title">Símbolo & favicon</div><div class="toc-page">07</div></div>
+    <div class="toc-row"><div class="toc-num">06</div><div class="toc-title">Reglas de uso · don'ts</div><div class="toc-page">08</div></div>
+    <div class="toc-row"><div class="toc-num">07</div><div class="toc-title">Aplicaciones</div><div class="toc-page">09</div></div>
+    <div class="toc-row"><div class="toc-num">08</div><div class="toc-title">Contacto</div><div class="toc-page">10</div></div>
+  </div>
+
+  <div class="page-footer"><span>Occasio · Brand Book</span><span class="beam-rule"></span><span>02 / 10</span></div>
+</div>
+
+<!-- ──────────────── PAGE 3 · ESENCIA ──────────────── -->
+<div class="page">
+  <div class="page-header"><span>01 · Esencia</span><span>Occasio Strategy</span></div>
+
+  <div class="eyebrow">· 01 · Esencia</div>
+  <div class="h1">Qué significa <span class="accent">Occasio</span>.</div>
+
+  <div class="body" style="margin-top: 10mm;">
+    <p><b>Occasio</b> es la palabra latina para "oportunidad" — hermana de la idea griega de
+    <i>kairos</i> (καιρός): el momento oportuno, distinto del <i>chronos</i> (el tiempo
+    cronológico que pasa). Occasio es la calidad de un instante:
+    cuando estás listo, cuando el dato revela algo, cuando hay que actuar.</p>
+    <p style="margin-top: 6mm;">Para una marca de strategy esa idea es la columna vertebral.
+    Los datos sirven cuando muestran <i>cuándo</i> hacer algo, no solo <i>qué</i> pasó. Occasio
+    convierte data en decisiones medibles — en el momento que importa.</p>
+    <p style="margin-top: 6mm;">El logo refleja esa promesa visualmente: una palabra sólida,
+    un <i>beam</i> de violeta que recorre de penumbra a luz — la trayectoria del dato bruto
+    hacia la decisión clara.</p>
+  </div>
+
+  <div class="rule-block" style="margin-top: 14mm;">
+    <div class="rule-label">El uso interno de la palabra</div>
+    <div class="body small">
+      Occasio se pronuncia <b>/okˈka.sjo/</b> (ok-KÁ-sio). En textos formales preferí
+      "Occasio Strategy" en primera mención y "Occasio" en menciones siguientes.
+      Nunca abreviar a "O." salvo en contextos visuales muy reducidos.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Occasio · Brand Book</span><span class="beam-rule"></span><span>03 / 10</span></div>
+</div>
+
+<!-- ──────────────── PAGE 4 · PALETA ──────────────── -->
+<div class="page">
+  <div class="page-header"><span>02 · Paleta</span><span>Occasio Strategy</span></div>
+
+  <div class="eyebrow">· 02 · Paleta</div>
+  <div class="h1">Colores oficiales.</div>
+
+  <div class="body" style="margin-top: 6mm;">
+    Una paleta de tres familias: <b>ink</b> (fondos oscuros), <b>paper</b> (fondos claros)
+    y <b>violet</b> (acento único). El beam es la única excepción gráfica.
+  </div>
+
+  <div class="swatch-grid">
+    <div class="swatch"><div class="chip" style="background: #0d0a1f;"></div><div class="name">Ink</div><div class="hex">#0D0A1F</div></div>
+    <div class="swatch"><div class="chip" style="background: #1a1334;"></div><div class="name">Ink Mid</div><div class="hex">#1A1334</div></div>
+    <div class="swatch"><div class="chip" style="background: #6d4ed8;"></div><div class="name">Violet 4</div><div class="hex">#6D4ED8</div></div>
+    <div class="swatch"><div class="chip" style="background: #8b5cf6;"></div><div class="name">Violet 2</div><div class="hex">#8B5CF6</div></div>
+    <div class="swatch"><div class="chip" style="background: #a78bfa;"></div><div class="name">Violet · accent</div><div class="hex">#A78BFA</div></div>
+    <div class="swatch"><div class="chip" style="background: #c4b5fd;"></div><div class="name">Violet 3</div><div class="hex">#C4B5FD</div></div>
+    <div class="swatch"><div class="chip" style="background: #ece6ff;"></div><div class="name">Paper 2</div><div class="hex">#ECE6FF</div></div>
+    <div class="swatch"><div class="chip" style="background: #f6f3ff;"></div><div class="name">Paper</div><div class="hex">#F6F3FF</div></div>
+    <div class="swatch"><div class="chip" style="background: var(--beam);"></div><div class="name">Beam</div><div class="hex">gradient</div></div>
+  </div>
+
+  <div class="page-footer"><span>Occasio · Brand Book</span><span class="beam-rule"></span><span>04 / 10</span></div>
+</div>
+
+<!-- ──────────────── PAGE 5 · TIPOGRAFÍA ──────────────── -->
+<div class="page">
+  <div class="page-header"><span>03 · Tipografía</span><span>Occasio Strategy</span></div>
+
+  <div class="eyebrow">· 03 · Tipografía</div>
+  <div class="h1">Manrope <span style="opacity:0.4;">+</span> JetBrains Mono.</div>
+
+  <div class="type-block">
+    <div class="type-label">Manrope · sans-serif humanista · usar para todo</div>
+    <div class="type-sample" style="font-family: 'Manrope', sans-serif; font-weight: 700;">Aa Bb Cc Dd · 0123</div>
+    <div class="type-weights">300 Light · 400 Regular · 500 Medium · 600 Semibold · 700 Bold · 800 Extrabold</div>
+    <div class="body small" style="margin-top: 4mm;">
+      Manrope se usa en wordmark (600), titulares (700) y body (400). Su tracking
+      cómodo y formas humanistas dan calidez sin perder rigor.
+    </div>
+  </div>
+
+  <div class="type-block">
+    <div class="type-label">JetBrains Mono · monoespaciada · datos, captions, etiquetas</div>
+    <div class="type-sample" style="font-family: 'JetBrains Mono', monospace; font-weight: 500;">0 1 2 3 4 5 6 7 8 9</div>
+    <div class="type-weights">400 Regular · 500 Medium</div>
+    <div class="body small" style="margin-top: 4mm;">
+      Reservada para texto técnico: etiquetas de sección, números de invoice, fechas,
+      URLs. Nunca en titulares ni body principal.
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Occasio · Brand Book</span><span class="beam-rule"></span><span>05 / 10</span></div>
+</div>
+
+<!-- ──────────────── PAGE 6 · LOGO ──────────────── -->
+<div class="page">
+  <div class="page-header"><span>04 · Logo</span><span>Occasio Strategy</span></div>
+
+  <div class="eyebrow">· 04 · Logo</div>
+  <div class="h1">Variantes.</div>
+  <div class="body" style="margin-top: 4mm;">
+    Wordmark + beam + subline. Seis variantes oficiales — usar según fondo y contexto.
+  </div>
+
+  <div class="logo-grid">
+    <div class="logo-cell">
+      <div class="kw lg"><div class="kw-word">OCCASIO</div><div class="kw-beam"></div><div class="kw-sub">S T R A T E G Y</div></div>
+      <div class="cell-label">primary · light</div>
+    </div>
+    <div class="logo-cell dark">
+      <div class="kw lg"><div class="kw-word">OCCASIO</div><div class="kw-beam"></div><div class="kw-sub">S T R A T E G Y</div></div>
+      <div class="cell-label">primary · dark</div>
+    </div>
+    <div class="logo-cell">
+      <div class="kw lg" style="color: var(--violet-4);">
+        <div class="kw-word">OCCASIO</div>
+        <div class="kw-beam" style="background: linear-gradient(90deg, rgba(109,78,216,0.05), #6d4ed8);"></div>
+        <div class="kw-sub">S T R A T E G Y</div>
+      </div>
+      <div class="cell-label">monocromo violeta</div>
+    </div>
+    <div class="logo-cell violet">
+      <div class="kw lg" style="color: var(--paper);">
+        <div class="kw-word">OCCASIO</div>
+        <div class="kw-beam" style="background: linear-gradient(90deg, rgba(255,255,255,0.1), #fff 60%, #c4b5fd);"></div>
+        <div class="kw-sub">S T R A T E G Y</div>
+      </div>
+      <div class="cell-label">reverso sobre violeta</div>
+    </div>
+    <div class="logo-cell">
+      <div class="kw lg" style="color: var(--ink);">
+        <div class="kw-word">OCCASIO</div>
+        <div class="kw-beam" style="background: #0d0a1f;"></div>
+      </div>
+      <div class="cell-label">wordmark sin subline · 1 tinta</div>
+    </div>
+    <div class="logo-cell dark">
+      <div style="display: flex; align-items: center; gap: 8mm;">
+        <div class="symbol" style="width: 18mm; height: 18mm; border-radius: 3mm;">
+          <div class="k" style="font-size: 18pt;">O</div>
+          <div class="b" style="width: 10mm; height: 0.8mm;"></div>
+        </div>
+        <div class="kw"><div class="kw-word" style="font-size: 16pt;">OCCASIO</div><div class="kw-beam"></div><div class="kw-sub">S T R A T E G Y</div></div>
+      </div>
+      <div class="cell-label">lockup horizontal</div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Occasio · Brand Book</span><span class="beam-rule"></span><span>06 / 10</span></div>
+</div>
+
+<!-- ──────────────── PAGE 7 · SÍMBOLO ──────────────── -->
+<div class="page">
+  <div class="page-header"><span>05 · Símbolo</span><span>Occasio Strategy</span></div>
+
+  <div class="eyebrow">· 05 · Símbolo / favicon</div>
+  <div class="h1">La O acompaña.</div>
+  <div class="body" style="margin-top: 4mm;">
+    A escala chica el wordmark pierde lectura. El símbolo es la <b>O</b> de Occasio
+    con un beam corto debajo, en una caja cuadrada o redondeada.
+  </div>
+
+  <div class="symbol-row">
+    <div class="symbol-cell"><div class="symbol"><div class="k">O</div><div class="b"></div></div><div class="symbol-label">Dark</div></div>
+    <div class="symbol-cell"><div class="symbol light"><div class="k">O</div><div class="b"></div></div><div class="symbol-label">Light</div></div>
+    <div class="symbol-cell"><div class="symbol violet"><div class="k">O</div><div class="b"></div></div><div class="symbol-label">Violet</div></div>
+    <div class="symbol-cell"><div class="symbol gradient"><div class="k">O</div><div class="b"></div></div><div class="symbol-label">Gradient</div></div>
+  </div>
+
+  <div style="margin-top: 14mm;">
+    <div class="h2">Favicon · escalas</div>
+    <div class="symbol-row" style="align-items: center;">
+      <div class="symbol-cell"><div class="symbol" style="width: 6mm; height: 6mm; border-radius: 1mm;"><div class="k" style="font-size: 4pt;">O</div><div class="b" style="width: 3mm; height: 0.5mm;"></div></div><div class="symbol-label" style="font-size: 6pt;">16</div></div>
+      <div class="symbol-cell"><div class="symbol" style="width: 10mm; height: 10mm; border-radius: 1.5mm;"><div class="k" style="font-size: 8pt;">O</div><div class="b" style="width: 5mm; height: 0.7mm;"></div></div><div class="symbol-label" style="font-size: 6pt;">32</div></div>
+      <div class="symbol-cell"><div class="symbol" style="width: 16mm; height: 16mm; border-radius: 2.5mm;"><div class="k" style="font-size: 14pt;">O</div><div class="b" style="width: 8mm; height: 1mm;"></div></div><div class="symbol-label" style="font-size: 6pt;">64</div></div>
+      <div class="symbol-cell"><div class="symbol" style="width: 24mm; height: 24mm; border-radius: 4mm;"><div class="k" style="font-size: 22pt;">O</div><div class="b" style="width: 12mm; height: 1.2mm;"></div></div><div class="symbol-label" style="font-size: 6pt;">128</div></div>
+      <div class="symbol-cell"><div class="symbol gradient" style="width: 32mm; height: 32mm; border-radius: 6mm;"><div class="k" style="font-size: 32pt;">O</div><div class="b" style="width: 16mm; height: 1.5mm;"></div></div><div class="symbol-label" style="font-size: 6pt;">180 · iOS</div></div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Occasio · Brand Book</span><span class="beam-rule"></span><span>07 / 10</span></div>
+</div>
+
+<!-- ──────────────── PAGE 8 · RULES / DON'TS ──────────────── -->
+<div class="page">
+  <div class="page-header"><span>06 · Reglas</span><span>Occasio Strategy</span></div>
+
+  <div class="eyebrow">· 06 · Reglas de uso</div>
+  <div class="h1">Mínimos y don'ts.</div>
+
+  <div class="rule-block">
+    <div class="rule-label">Clear space</div>
+    <div class="body small">
+      Mantener un margen libre alrededor del logo igual a la altura de la <b>O</b> (= x).
+      Nada toca al logo dentro de ese margen.
+    </div>
+  </div>
+
+  <div class="rule-block" style="margin-top: 4mm;">
+    <div class="rule-label">Tamaños mínimos</div>
+    <div class="body small">
+      Logo completo con subline: <b>≥ 18px</b> (digital) · <b>≥ 14mm</b> (impreso).<br/>
+      Wordmark sin subline: <b>≥ 12px</b> · <b>≥ 9mm</b>.<br/>
+      Más chico que eso: usar solo el <b>símbolo</b>.
+    </div>
+  </div>
+
+  <div style="margin-top: 12mm;">
+    <div class="rule-label">No hacer</div>
+    <div class="donts-row">
+      <div class="dont">
+        <div class="dont-frame">
+          <div class="dont-x">✕</div>
+          <div style="transform: scale(1.6, 0.7);">
+            <div class="kw"><div class="kw-word" style="font-size: 14pt;">OCCASIO</div><div class="kw-beam"></div></div>
+          </div>
+        </div>
+        <div class="dont-label">No distorsionar</div>
+      </div>
+      <div class="dont">
+        <div class="dont-frame">
+          <div class="dont-x">✕</div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap: 1.5mm;">
+            <div style="font-family: 'Manrope'; font-weight: 600; font-size: 14pt; letter-spacing: 0.16em;">OCCASIO</div>
+            <div style="width: 70px; height: 2px; background: var(--beam); transform: rotate(-18deg);"></div>
+          </div>
+        </div>
+        <div class="dont-label">No rotar el beam</div>
+      </div>
+      <div class="dont">
+        <div class="dont-frame">
+          <div class="dont-x">✕</div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap: 1.5mm;">
+            <div style="font-family: 'Manrope'; font-weight: 600; font-size: 14pt; letter-spacing: 0.16em;">OCCASIO</div>
+            <div style="width: 70px; height: 2px; background: linear-gradient(90deg, #f59e0b, #ef4444);"></div>
+          </div>
+        </div>
+        <div class="dont-label">No recolorear</div>
+      </div>
+      <div class="dont">
+        <div class="dont-frame" style="background: linear-gradient(135deg, #f59e0b, #ec4899, #8b5cf6);">
+          <div class="dont-x">✕</div>
+          <div class="kw"><div class="kw-word" style="font-size: 14pt;">OCCASIO</div><div class="kw-beam"></div></div>
+        </div>
+        <div class="dont-label">No sobre fondos cargados</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Occasio · Brand Book</span><span class="beam-rule"></span><span>08 / 10</span></div>
+</div>
+
+<!-- ──────────────── PAGE 9 · APPLICATIONS ──────────────── -->
+<div class="page">
+  <div class="page-header"><span>07 · Aplicaciones</span><span>Occasio Strategy</span></div>
+
+  <div class="eyebrow">· 07 · Aplicaciones</div>
+  <div class="h1">En el mundo real.</div>
+
+  <div class="app-grid">
+    <div class="app-cell dark" style="background: radial-gradient(circle at 50% 0%, #1a1334 0%, #0d0a1f 55%, #08061a 100%);">
+      <div class="app-body">
+        <div class="kw"><div class="kw-word" style="font-size: 11pt;">OCCASIO</div><div class="kw-beam"></div></div>
+        <div style="font-weight: 700; font-size: 15pt; line-height: 1.05; max-width: 70mm;">
+          Data into <span style="color: var(--violet);">measurable</span> outcomes.
+        </div>
+      </div>
+      <div class="app-label">Website · header</div>
+    </div>
+
+    <div class="app-cell">
+      <div class="app-body">
+        <div class="kw"><div class="kw-word" style="font-size: 11pt;">OCCASIO</div><div class="kw-beam"></div><div class="kw-sub">S T R A T E G Y</div></div>
+        <div>
+          <div style="font-weight: 600; font-size: 11pt;">Pablo Avenali</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 7pt; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.6; margin-top: 1mm;">Founder · Analytics</div>
+        </div>
+      </div>
+      <div class="app-label">Tarjeta personal</div>
+    </div>
+
+    <div class="app-cell dark" style="background: var(--violet-2);">
+      <div class="app-body">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 7pt; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.85;">
+          · Open for engagements 2026
+        </div>
+        <div style="font-weight: 700; font-size: 17pt; line-height: 1;">
+          Analytics<br/>que mueven<br/>el negocio.
+        </div>
+      </div>
+      <div class="app-label">Instagram · post</div>
+    </div>
+
+    <div class="app-cell dark" style="background: radial-gradient(ellipse at 30% 50%, #2d1f5e 0%, #0d0a1f 60%);">
+      <div class="app-body" style="justify-content: center; gap: 6mm;">
+        <div class="kw"><div class="kw-word" style="font-size: 13pt;">OCCASIO</div><div class="kw-beam"></div><div class="kw-sub">S T R A T E G Y</div></div>
+        <div style="font-weight: 600; font-size: 11pt; max-width: 80mm; line-height: 1.2;">
+          Turning enterprise data into <span style="color: var(--violet);">measurable</span> business outcomes.
+        </div>
+      </div>
+      <div class="app-label">LinkedIn · cover</div>
+    </div>
+  </div>
+
+  <div class="body small" style="margin-top: 8mm; opacity: 0.7;">
+    Ver el sistema completo (todas las aplicaciones, social, print) en el brand book interactivo.
+  </div>
+
+  <div class="page-footer"><span>Occasio · Brand Book</span><span class="beam-rule"></span><span>09 / 10</span></div>
+</div>
+
+<!-- ──────────────── PAGE 10 · CONTACT ──────────────── -->
+<div class="page dark">
+  <div class="page-header" style="color: var(--paper); opacity: 0.55;"><span>08 · Contacto</span><span>Occasio Strategy</span></div>
+
+  <div style="margin-top: 30mm;">
+    <div class="eyebrow">· 08 · Contacto</div>
+    <div class="h1">Hablemos.</div>
+  </div>
+
+  <div style="margin-top: 24mm; display: grid; grid-template-columns: 1fr 1fr; gap: 16mm;">
+    <div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 9pt; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.55; margin-bottom: 4mm;">
+        Founder
+      </div>
+      <div style="font-size: 22pt; font-weight: 600; letter-spacing: -0.02em;">Pablo Avenali</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11pt; line-height: 1.8; margin-top: 8mm; opacity: 0.85;">
+        pablo@occasio.com<br/>
+        +54 11 5555 5555<br/>
+        occasio.com
+      </div>
+    </div>
+    <div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 9pt; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.55; margin-bottom: 4mm;">
+        Oficina
+      </div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11pt; line-height: 1.8; opacity: 0.85;">
+        Av. del Libertador 1234, Piso 8<br/>
+        C1428 Buenos Aires<br/>
+        Argentina
+      </div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 9pt; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.55; margin-top: 12mm; margin-bottom: 4mm;">
+        Social
+      </div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11pt; line-height: 1.8; opacity: 0.85;">
+        LinkedIn @pabloavenali<br/>
+        Instagram @occasio.strategy
+      </div>
+    </div>
+  </div>
+
+  <div style="position: absolute; bottom: 22mm; left: 20mm; right: 20mm;">
+    <div class="kw lg" style="color: var(--paper);"><div class="kw-word">OCCASIO</div><div class="kw-beam"></div><div class="kw-sub">S T R A T E G Y</div></div>
+  </div>
+
+  <div class="page-footer" style="color: var(--paper); opacity: 0.55;"><span>Occasio · Brand Book v1.0</span><span class="beam-rule"></span><span>10 / 10</span></div>
+</div>
+
+</body>
+</html>

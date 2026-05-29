@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --beam: linear-gradient(90deg, rgba(167, 139, 250, 0.05) 0%, #8b5cf6 65%, #a78bfa 100%);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  background-color: #0d0a1f;
+  color: #f6f3ff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  font-feature-settings: 'cv11', 'ss01', 'ss03';
+}
+
+::selection {
+  background-color: rgba(139, 92, 246, 0.4);
+  color: #f6f3ff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #0d0a1f; }
+::-webkit-scrollbar-thumb { background: #241a4a; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #6d4ed8; }
+
+@layer base {
+  h1, h2, h3, h4 { font-family: 'Manrope', sans-serif; }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto px-6 sm:px-8 lg:px-12 max-w-[1240px];
+  }
+  .section-pad {
+    @apply py-24 sm:py-28 lg:py-36;
+  }
+  .heading-display {
+    @apply font-display font-bold tracking-tightest;
+  }
+  .heading-sub {
+    @apply font-display font-semibold tracking-tighter;
+  }
+  /* Brand beam — the signature horizontal line */
+  .beam {
+    @apply h-px w-full;
+    background: var(--beam);
+  }
+  .beam-thick {
+    @apply h-[3px] w-full;
+    background: var(--beam);
+  }
+  /* Eyebrow / micro label, mono + uppercase + tracked */
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-[10px] font-mono uppercase tracking-beam text-violet-200;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply block w-6 h-px;
+    background: var(--beam);
+  }
+  /* Buttons — restrained, consulting-style */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-violet-400 text-paper font-medium text-sm tracking-tight transition-all duration-300 hover:bg-violet-500 hover:shadow-beam hover:-translate-y-0.5;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full border border-bg-border text-paper font-medium text-sm tracking-tight transition-all duration-300 hover:border-violet-300 hover:bg-violet-400/5 hover:-translate-y-0.5;
+  }
+  .btn-link {
+    @apply inline-flex items-center gap-1.5 text-sm font-medium text-violet-200 hover:text-paper transition-colors;
+  }
+  /* Surface tokens */
+  .surface {
+    @apply bg-bg-surface border border-bg-border rounded-2xl transition-all duration-300;
+  }
+  .surface-elevated {
+    @apply bg-bg-elevated border border-bg-border rounded-2xl;
+  }
+  .surface-hover {
+    @apply hover:border-violet-400/30 hover:-translate-y-0.5 hover:shadow-card-hover;
+  }
+  /* Gradient text — used sparingly for accents */
+  .ink-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #f6f3ff 0%, #a78bfa 70%, #c4b5fd 100%);
+  }
+  /* Number / metric display */
+  .metric {
+    @apply font-display font-bold tracking-tightest text-paper;
+  }
+  /* Section eyebrow with the small index number */
+  .section-label {
+    @apply font-mono text-[10px] uppercase tracking-beam text-violet-200;
+  }
+  /* Subtle inset border for delineation */
+  .hairline {
+    @apply border-t border-bg-border;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

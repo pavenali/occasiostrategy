@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<title>Occasio · Brand Hub</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="assets/svg/favicon-32.svg" />
+<style>
+  :root {
+    --ink:      #0d0a1f;
+    --ink-2:    #1a1334;
+    --paper:    #f6f3ff;
+    --violet:   #a78bfa;
+    --violet-2: #8b5cf6;
+    --violet-3: #c4b5fd;
+    --violet-4: #6d4ed8;
+    --beam:     linear-gradient(90deg, rgba(167,139,250,0.05), #8b5cf6 65%, #a78bfa 100%);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: radial-gradient(ellipse at 50% 0%, #2d1f5e 0%, #0d0a1f 50%, #08061a 100%);
+    color: var(--paper);
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 1100px; margin: 0 auto;
+    padding: 80px 32px 120px;
+  }
+  .header { margin-bottom: 80px; }
+  .kw { display: inline-flex; flex-direction: column; align-items: flex-start; align-self: flex-start; }
+  .kw-word { font-weight: 600; font-size: 22px; letter-spacing: 0.16em; line-height: 1; text-indent: 0.16em; }
+  .kw-beam { align-self: stretch; height: 3px; background: var(--beam); margin-top: 8px; }
+  .kw-sub  { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.42em; text-transform: uppercase; opacity: 0.6; margin-top: 6px; white-space: nowrap; }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--violet-3); margin-top: 56px; margin-bottom: 16px;
+  }
+  h1 {
+    font-weight: 700; font-size: 56px; letter-spacing: -0.03em; line-height: 1.0;
+    margin: 0 0 24px; max-width: 800px;
+  }
+  h1 .accent { color: var(--violet); }
+  .lede {
+    font-size: 17px; line-height: 1.65; opacity: 0.75; max-width: 640px; margin: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    display: block;
+    text-decoration: none; color: inherit;
+    background: rgba(246, 243, 255, 0.04);
+    border: 1px solid rgba(246, 243, 255, 0.08);
+    border-radius: 12px;
+    padding: 28px;
+    transition: all 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover {
+    background: rgba(167, 139, 250, 0.08);
+    border-color: rgba(167, 139, 250, 0.35);
+    transform: translateY(-2px);
+  }
+  .card .num {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.25em; color: var(--violet-3);
+    margin-bottom: 14px;
+  }
+  .card h3 {
+    font-weight: 600; font-size: 20px; letter-spacing: -0.02em;
+    margin: 0 0 10px;
+  }
+  .card p {
+    font-size: 13px; line-height: 1.55; opacity: 0.7; margin: 0 0 18px;
+  }
+  .card .arrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--violet);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card .arrow::after {
+    content: '→'; transition: transform 0.18s;
+  }
+  .card:hover .arrow::after { transform: translateX(4px); }
+
+  .card.featured {
+    grid-column: span 2;
+    background: linear-gradient(135deg, rgba(109,78,216,0.18), rgba(167,139,250,0.06));
+    border-color: rgba(167,139,250,0.25);
+  }
+  @media (max-width: 720px) {
+    .card.featured { grid-column: span 1; }
+    h1 { font-size: 40px; }
+  }
+
+  .section-title {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    opacity: 0.55; margin: 64px 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(246,243,255,0.1);
+  }
+
+  footer {
+    margin-top: 96px; padding-top: 32px;
+    border-top: 1px solid rgba(246,243,255,0.1);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.55;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="kw">
+      <div class="kw-word">OCCASIO</div>
+      <div class="kw-beam"></div>
+      <div class="kw-sub">S T R A T E G Y</div>
+    </div>
+
+    <div class="eyebrow">· Brand system · v1.0 · May 2026</div>
+    <h1>El sistema de marca <span class="accent">completo</span>, en un solo lugar.</h1>
+    <p class="lede">
+      Todo lo que necesitás para usar Occasio en cualquier contexto: logos descargables,
+      el brand book interactivo, el brand book imprimible y los templates corporativos.
+    </p>
+  </div>
+
+  <!-- Featured -->
+  <div class="section-title">· Empezá acá</div>
+  <div class="grid">
+    <a class="card featured" href="Occasio Brand System.html">
+      <div class="num">01 · Brand book interactivo</div>
+      <h3>Sistema visual completo — canvas navegable</h3>
+      <p>
+        Paleta, tipografía, beam, 8 variantes de logo, símbolos, todas las aplicaciones
+        (web, social, print), reglas de uso y don'ts. Abrí cualquier asset a pantalla completa.
+      </p>
+      <div class="arrow">Abrir canvas</div>
+    </a>
+
+    <a class="card" href="Occasio Brand Book.html">
+      <div class="num">02 · Brand book imprimible</div>
+      <h3>PDF de 10 páginas</h3>
+      <p>Versión A4 lista para enviar. Cmd+P → guardar como PDF.</p>
+      <div class="arrow">Abrir y exportar</div>
+    </a>
+  </div>
+
+  <!-- Assets -->
+  <div class="section-title">· Recursos descargables</div>
+  <div class="grid">
+    <a class="card" href="Occasio Assets.html">
+      <div class="num">03 · Asset pack</div>
+      <h3>SVGs de logo, símbolo y favicons</h3>
+      <p>
+        13 archivos vectoriales: logo color/mono, wordmark sin subline, 4 variantes de símbolo,
+        favicons web y apple-touch-icon.
+      </p>
+      <div class="arrow">Descargar SVGs</div>
+    </a>
+
+    <a class="card" href="Occasio Templates.html">
+      <div class="num">04 · Templates corporativos</div>
+      <h3>Proposal · invoice · deck</h3>
+      <p>
+        11 slides en 1920×1080: cover, agenda, divisores, contenido, stats, quote, proceso,
+        pricing, factura, closing.
+      </p>
+      <div class="arrow">Abrir deck</div>
+    </a>
+  </div>
+
+  <!-- Archive -->
+  <div class="section-title">· Histórico de exploración</div>
+  <div class="grid">
+    <a class="card" href="Occasio Logo v2.html">
+      <div class="num">05 · v2 · 8 wordmarks</div>
+      <h3>Variantes del wordmark uppercase</h3>
+      <p>La exploración violeta de la que salió la dirección elegida (07).</p>
+      <div class="arrow">Ver exploración</div>
+    </a>
+
+    <a class="card" href="Occasio Logo.html">
+      <div class="num">06 · v1 · 12 direcciones</div>
+      <h3>Primera exploración (teal/sage)</h3>
+      <p>Las 12 direcciones iniciales antes de definir la paleta.</p>
+      <div class="arrow">Ver exploración</div>
+    </a>
+  </div>
+
+  <footer>
+    <span>Occasio Strategy · 2026</span>
+    <span>Pablo Avenali · pablo@occasio.com</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
