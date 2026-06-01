@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
+  <url>
+    <loc>https://occasiostrategy.com/</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://occasiostrategy.com/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://occasiostrategy.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://occasiostrategy.com/" />
+    <image:image>
+      <image:loc>https://occasiostrategy.com/assets/brand/occasio-logo.svg</image:loc>
+      <image:title>Occasio Strategy — Analytics, BI &amp; AI Advisory</image:title>
+    </image:image>
+  </url>
+</urlset>

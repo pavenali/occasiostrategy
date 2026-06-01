@@ -1,0 +1,12 @@
+# Occasio Strategy — robots.txt
+# https://occasiostrategy.com
+
+User-agent: *
+Allow: /
+
+# Block common low-value paths (none right now, kept for future)
+Disallow: /api/
+Disallow: /admin/
+
+# Sitemap
+Sitemap: https://occasiostrategy.com/sitemap.xml
